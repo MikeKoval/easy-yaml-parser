@@ -1,0 +1,17 @@
+steps:
+- name: build
+  depends_on:
+    - compile
+  logic:
+    - docker build ...
+    - gulp lint
+- name: notify
+  depends_on:
+    - compile
+    - build
+  logic:
+    - slack notify ...
+- name: compile
+  logic:
+    - gulp compile
+    - gulp lint
